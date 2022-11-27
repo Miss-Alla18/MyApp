@@ -1,12 +1,18 @@
 package com.mirea.kornelyuk.galperina.myapp;
 
+import static com.mirea.kornelyuk.galperina.myapp.R.id.*;
+import static com.mirea.kornelyuk.galperina.myapp.R.id.button;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 
 import com.mirea.kornelyuk.galperina.myapp.adapter.CategoryAdapter;
 import com.mirea.kornelyuk.galperina.myapp.adapter.CourseAdapter;
@@ -23,10 +29,12 @@ public class MainActivity extends AppCompatActivity {
     static List<Course> courseList = new ArrayList<>();
     static List<Course> fullCoursesList = new ArrayList<>();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         List<Category> categoryList = new ArrayList<>();
         categoryList.add(new Category(1, "Мясо"));
@@ -124,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
         setCourseRecycler(courseList);
     }
 
+
+//
+
     public void openCard( View view){
         Intent intent = new Intent(this, OrderPage.class);
         startActivity(intent);
@@ -173,4 +184,6 @@ public class MainActivity extends AppCompatActivity {
         courseList.addAll(filterCourses);
         courseAdapter.notifyDataSetChanged();
     }
+
+
 }
