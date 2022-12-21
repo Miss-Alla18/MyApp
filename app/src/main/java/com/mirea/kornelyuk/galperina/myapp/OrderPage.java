@@ -3,11 +3,10 @@ package com.mirea.kornelyuk.galperina.myapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.mirea.kornelyuk.galperina.myapp.model.Course;
+import com.mirea.kornelyuk.galperina.myapp.model.Recipe;
 import com.mirea.kornelyuk.galperina.myapp.model.Order;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class OrderPage extends AppCompatActivity {
 
         ListView orders_list = findViewById(R.id.orders_list);
         List<String> coursesTitle = new ArrayList<>();
-        for(Course c: MainActivity.fullCoursesList){
+        for(Recipe c: MainActivity.fullRecipeList){
             if(Order.items_id.contains(c.getId()))
                 coursesTitle.add(c.getTitle());
         }

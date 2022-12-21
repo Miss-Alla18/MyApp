@@ -29,7 +29,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     //отображение пользователю
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View categoryItems = LayoutInflater.from(context).inflate(R.layout.category_item, parent, false);//для всех эл определенный дизайн
         return new CategoryViewHolder(categoryItems);
     }
@@ -42,7 +41,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             @Override
             public void onClick(View view) {
                 MainActivity.showCoursesByCategory(categories.get(position).getId());
-
             }
         });
 
@@ -52,6 +50,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public int getItemCount() {
         return categories.size();
     }
+
     //можем обратиться к определенному дизайну и выбрать нужный элемент
     public static final class CategoryViewHolder extends  RecyclerView.ViewHolder{
         TextView categoryTitle;//какие поля будем менять (текст на овалах)

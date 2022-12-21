@@ -1,33 +1,31 @@
 package com.mirea.kornelyuk.galperina.myapp;
 
-import static com.mirea.kornelyuk.galperina.myapp.R.id.*;
-import static com.mirea.kornelyuk.galperina.myapp.R.id.button;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mirea.kornelyuk.galperina.myapp.adapter.CategoryAdapter;
-import com.mirea.kornelyuk.galperina.myapp.adapter.CourseAdapter;
+import com.mirea.kornelyuk.galperina.myapp.adapter.RecipeAdapter;
 import com.mirea.kornelyuk.galperina.myapp.model.Category;
-import com.mirea.kornelyuk.galperina.myapp.model.Course;
+import com.mirea.kornelyuk.galperina.myapp.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     RecyclerView categoryRecycler, courseRecycler;
     CategoryAdapter categoryAdapter;
-    static CourseAdapter courseAdapter;//что бы было удобно к нему обратиться и что бы сохранил свое первоначальное значение
-    static List<Course> courseList = new ArrayList<>();
-    static List<Course> fullCoursesList = new ArrayList<>();
+    static RecipeAdapter recipeAdapter;//что бы было удобно к нему обратиться и что бы сохранил свое первоначальное значение
+    static List<Recipe> recipeList = new ArrayList<>();
+    static List<Recipe> fullRecipeList = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,9 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         setCategoryRecycler(categoryList);
 
+        // Observer<List<Recipe>> allRecipesObserver = new Observer<>() {
+        // ..
+        // }
+//        viewModel.getAllRecipes().observe(this, allRecipesObserver)
 
-
-        courseList.add(new Course(1, "tramezzino", "Бургеры",  "Новичок", "25 минут","#FBEEC1", "Ингредиенты\n" +
+        recipeList.add(new Recipe(1, "tramezzino", "Бургеры",  "Новичок", "25 минут","#FBEEC1", "Ингредиенты\n" +
                 "2 фунта говяжьего фарша или 2 (10 унций) упаковки вегетарианского заменителя говяжьего фарша\n" +
                 "2 больших яйца (взбитых)\n" +
                 "1/4 стакана простых хлебных крошек\n" +
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 "Чистыми руками сформируйте смесь в 10 пирожков, перенося каждый на подготовленную сковороду для бройлера или противень во время работы.\n" +
                 "\n" +
                 "Жарьте или запекайте в предварительно разогретой духовке около 8 минут с каждой стороны, до готовности. Подавайте сразу на булочках с гамбургерами с вашими любимыми начинками.", 1));
-        courseList.add(new Course(2, "thank_2", "Курица-ляв\naнги",  "Средний","1,5 часа" ,"#FBEEC1", "Ингредиенты\n" +
+        recipeList.add(new Recipe(2, "thank_2", "Курица-ляв\naнги",  "Средний","1,5 часа" ,"#FBEEC1", "Ингредиенты\n" +
                 "1 курица\n" +
                 "150 гр очищенных грецких орехов\n" +
                 "150 гр красного лука\n" +
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 "Начините курицу и закройте отверстие – можно сделать это зубочистками или просто связав ножки. Если есть время, поставьте начиненную курицу на ночь в холодильник – так она лучше промаринуется.\n" +
                 "\n" +
                 "Выпекайте 50 минут при температуре 190 градусов.", 2));
-        courseList.add(new Course(3,"food_meat_gumbo", "Йеменский \nкуриный суп",  "Средний","2,5 часа", "#FBEEC1", "Ингредиенты\n" +
+        recipeList.add(new Recipe(3,"food_meat_gumbo", "Йеменский \nкуриный суп",  "Средний","2,5 часа", "#FBEEC1", "Ингредиенты\n" +
                 "курица\n" +
                 "4–5 среднего размера картофелин\n" +
                 "1 луковица\n" +
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 "Курицу разрезать на порционные куски и залить водой. В воду для супа добавить нарезанную четвертинками луковицу, и варить на медленном огне два часа.\n" +
                 "\n" +
                 "Минут за сорок до окончания варки, положить в кастрюлю разрезанные пополам картофелины и всыпать специи. (За счет куркумы суп моментально приобретет богатый янтарный цвет).", 3));
-        courseList.add(new Course(4, "food_big_salad", "Салат «Табуле»\n с петрушкой",  "Новичок","25 минут", "#FBEEC1", "Ингредиенты\n" +
+        recipeList.add(new Recipe(4, "food_big_salad", "Салат «Табуле»\n с петрушкой",  "Новичок","25 минут", "#FBEEC1", "Ингредиенты\n" +
                 "200 г кускуса\n" +
                 "300 г помидор\n" +
                 "Зелень по вкусу\n" +
@@ -107,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 "Кускус залить кипятком и оставить минут на 20.\n" +
                 "Нарезать помидоры. Порубить зеленый лук и петрушку (без стеблей).\n" +
                 "Смешать петрушку, лук, помидоры и кускус. Заправить салат 4–5 столовыми ложками оливкового масла и выжать сок половины лимона.\n" + " Посолить, поперчить и отправить в холодильник, чтобы салат пропитался.\n" + "Можно добавить дольки лимона как для декора, так и для вкуса.",4 ));
-        courseList.add(new Course(5, "flambyxvi", "Еврейский \nяблочный пирог",  "Средний", "1,5 часа","#FBEEC1", "Ингредиенты:\n"+" 1/2 Стакана fпельсинового сокa\n"+"4 шт яйца\n"+"2 чайные ложки ванили\n"+
+        recipeList.add(new Recipe(5, "flambyxvi", "Еврейский \nяблочный пирог",  "Средний", "1,5 часа","#FBEEC1", "Ингредиенты:\n"+" 1/2 Стакана fпельсинового сокa\n"+"4 шт яйца\n"+"2 чайные ложки ванили\n"+
                 "1 чайная ложка порошка для выпечки\n"+"8 штук яблок\n"+"2 чайные ложки корицы\n"+"-----------------------\n" +
                 "Приготовление\n"+
                 " Взбить яйца, смешать с маслом и апельсиновым соком. Добавить муки, 2 стакана сахара и порошок для выпечки.\n"+
                 " Затем добавить ванилин. Почистить и нарезать яблоки небольшими ломтиками. Смешать фрукты с корицей и 1/2 стакана сахара.\n"+
                 " Залить 1/2 теста в смазанную форму для выпечки. Выложить яблочную смесь поверх. Затем нужно накрыть начинку оставшимся тестом.\n"+
                 " Выпекать при температуре 170 около 1 чаcа" , 5));
-        courseList.add(new Course(6, "mincemeat_pie", "Нежная \nтворожная \nзапеканка", "Средний","1,5 часа", "#FBEEC1", "Ингредиенты\n" +
+        recipeList.add(new Recipe(6, "mincemeat_pie", "Нежная \nтворожная \nзапеканка", "Средний","1,5 часа", "#FBEEC1", "Ингредиенты\n" +
                 "750 гр гвина левана \n" +
                 "3 шт яйца\n" +
                 "3 ст. ложки кукурузой муки\n" +
@@ -127,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
                 "\n" +
                 "Готовность проверить сухим ножом или зубочисткой. Они должны остаться сухими.", 6 ));
 
-        fullCoursesList.addAll(courseList);
+        fullRecipeList.addAll(recipeList);
 
-        setCourseRecycler(courseList);
+        setCourseRecycler(recipeList);
     }
 
 
@@ -144,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
     public void openKosher( View view){
         Intent intent = new Intent(this, KosherPage.class);
         startActivity(intent);
-
     }
 
     public void openRestoran( View view){
@@ -153,13 +153,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setCourseRecycler(List<Course> courseList) {
+    private void setCourseRecycler(List<Recipe> recipeList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         courseRecycler = findViewById(R.id.courseRecycler);
         courseRecycler.setLayoutManager(layoutManager);
 
-        courseAdapter = new CourseAdapter(this, courseList);
-        courseRecycler.setAdapter(courseAdapter);
+        recipeAdapter = new RecipeAdapter(this, recipeList);
+        courseRecycler.setAdapter(recipeAdapter);
     }
 
     private void setCategoryRecycler(List<Category> categoryList) {
@@ -173,16 +173,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void showCoursesByCategory(int category){
-        courseList.clear();
-        courseList.addAll(fullCoursesList);
-        List<Course> filterCourses = new ArrayList<>();
-        for(Course c:courseList){
+        recipeList.clear();
+        recipeList.addAll(fullRecipeList);
+        List<Recipe> filterCours = new ArrayList<>();
+        for(Recipe c: recipeList){
             if(c.getCategory() == category)//проверка на подходящие категории
-                filterCourses.add(c);
+                filterCours.add(c);
         }
-        courseList.clear();//очистим от лишних
-        courseList.addAll(filterCourses);
-        courseAdapter.notifyDataSetChanged();
+        recipeList.clear();//очистим от лишних
+        recipeList.addAll(filterCours);
+        recipeAdapter.notifyDataSetChanged();
     }
 
 

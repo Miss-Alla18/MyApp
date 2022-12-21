@@ -1,10 +1,13 @@
 package com.mirea.kornelyuk.galperina.myapp.model;
 
-public class Course {
+public class Recipe {
     int id, category;
     String img, title, lvl, date, colour, text;
 
-    public Course(int id, String img, String title, String lvl, String date, String colour, String text, int category) {
+    public Recipe() {
+    }
+
+    public Recipe(int id, String img, String title, String lvl, String date, String colour, String text, int category) {
         this.id = id;
         this.img = img;
         this.title = title;
